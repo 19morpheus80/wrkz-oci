@@ -1,0 +1,15 @@
+FROM docker.io/library/debian:unstable-slim as multistage
+
+RUN apt update && apt install git gcc-8 g++-8 make cmake libboost-all-dev -y && apt clean all \
+&& cd \
+&& git clone -b development --single-branch --depth 1 https://github.com/wrkzcoin/wrkzcoin.git \
+&& cd wrkzcoin && mkdir build && cd build \
+&& CC=gcc-8 CXX=g++-8 cmake -DCMAKE_BUILD_TYPE=Release -DWITH_LEVELDB=ON .. && make Wrkzd
+
+##
+
+FROM frolvlad/alpine-glibc:latest
+
+COPY --from=multistage /root/wrkzcoin/build/src/Wrkzd /usr/bin/Wrkzd
+EXPOSE 17855 17856
+CMD ["Wrkzd","--version"]

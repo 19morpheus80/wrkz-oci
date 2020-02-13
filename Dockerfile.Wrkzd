@@ -1,0 +1,12 @@
+FROM frolvlad/alpine-glibc:latest
+
+ARG dl=https://wrkzcoin.s3.fr-par.scw.cloud/cli/20200213-1405-7cf341a2-wrkzcoin-linux-leveldb.tar.gz
+
+RUN cd \
+	&& wget -O dlfile.tar.gz $dl \
+	&& tar --strip-components 1 -C /usr/bin -xzf dlfile.tar.gz "$(tar -tf dlfile.tar.gz | grep Wrkzd)" \
+	&& rm dlfile.tar.gz \
+	&& Wrkzd --version
+
+EXPOSE 17855 17856
+CMD ["Wrkzd","--version"]
