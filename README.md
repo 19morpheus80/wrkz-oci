@@ -19,13 +19,13 @@ cd wrkz-oci
 ```
 
 #### to build a container with binary from the CI chain
-`docker build -f Dockerfile.Wrkzd -t wrkzdev`
+`docker build -f Dockerfile.Wrkzd -t wrkzdev .`
 
 #### NOTE:  you can add build argument 'dl' to supercede the hard coded binary, as I will inevibatably not keep things up to date.
-`docker build --build-arg dl="https://wrkzcoin.s3.fr-par.scw.cloud/cli/20200213-1405-7cf341a2-wrkzcoin-linux-leveldb.tar.gz" -f Dockerfile.Wrkzd -t wrkzdev`
+`docker build --build-arg dl="https://wrkzcoin.s3.fr-par.scw.cloud/cli/20200213-1405-7cf341a2-wrkzcoin-linux-leveldb.tar.gz" -f Dockerfile.Wrkzd -t wrkzdev .`
 
 ##### or to build everything from the GitHub development tree (takes a while)
-`docker build -f Dockerfile.build.Wrkzd -t wrkzdev`
+`docker build -f Dockerfile.build.Wrkzd -t wrkzdev .`
 
 #### if that works the following line will show the Wrkzd version
 `docker run --rm wrkzdev`
