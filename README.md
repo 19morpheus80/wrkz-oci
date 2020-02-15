@@ -50,7 +50,7 @@ if you dont want an interactive session, remove `-it` from the following line
 
 ```
 echo "docker run -it --rm --name=wrkzd -p 17855:17855 -p 17856:17856 -v ./data:/root/data:z wrkzdev \
-Wrkzd --data-dir=/root/data --load-checkpoints=/root/data/wrkzcoin_checkpoints.csv --rpc-bind-ip=0.0.0.0" > startcontainer.sh
+Wrkzd --data-dir=/root/data --load-checkpoints=/root/data/wrkzcoin_checkpoints.csv --rpc-bind-ip=0.0.0.0" > startwrkzd.sh
 chmod +x startwrkzd.sh
 ```
 
