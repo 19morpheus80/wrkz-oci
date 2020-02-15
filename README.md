@@ -4,8 +4,9 @@
 You can either build `Dockerfile.Wrkzd` for a quick image with a binary supplied from the CI chain, or use `Dockerfile.build.Wrkzd` to compile the latest available source from the development tree at GitHub.
 
 Either way the result is a 25MB Alpine container (with glibc for compatibility).
+
 +++
-NOTE: I ran into problems with Alpine in Armbian so I've moved over to busybox, adding `Dockerfile.build-busybox.Wrkzd`  At the moment you need to copy in libpthread.so.0 and librt.so.1 into /lib before the daemon will run.  I did this on Armbian with the following commands;
+NOTE: I ran into problems with Alpine in Armbian so I've moved over to a busybox image on ARM, adding `Dockerfile.build-busybox.Wrkzd`  At the moment you need to copy in libpthread.so.0 and librt.so.1 into /lib before the daemon will run.  I did this on Armbian with the following commands;
 ```
 docker cp -L /lib/aarch64-linux-gnu/librt.so.1 2b18f23d8c96:/lib/
 docker cp -L /lib/aarch64-linux-gnu/libpthread.so.0 2b18f23d8c96:/lib/
@@ -15,7 +16,7 @@ Where 2b18f23d8c96 is the name of the container spawned from the wrkzdev image y
 
 Then you can run Wrkzd in a 9MB container!
 
-Coming soon; more great innovations!
+Coming soon; more great innovations, and smaller images.
 +++
 
 # To find out what to do read on..
