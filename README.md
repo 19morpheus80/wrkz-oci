@@ -4,17 +4,21 @@
 You can either build `Dockerfile.Wrkzd` for a quick image with a binary supplied from the CI chain, or use `Dockerfile.build.Wrkzd` to compile the latest available source from the development tree at GitHub.
 
 Either way the result is a 25MB Alpine container (with glibc for compatibility).
-
++++
 NOTE: I ran into problems with Alpine in Armbian so I've moved over to busybox, adding `Dockerfile.build-busybox.Wrkzd`  At the moment you need to copy in libpthread.so.0 and librt.so.1 into /lib before the daemon will run.  I did this on Armbian with the following commands;
 ```
 docker cp -L /lib/aarch64-linux-gnu/librt.so.1 2b18f23d8c96:/lib/
 docker cp -L /lib/aarch64-linux-gnu/libpthread.so.0 2b18f23d8c96:/lib/
 docker commit 2b18f23d8c96 wrkzdev
 ```
+Where 2b18f23d8c96 is the name of the container spawned from the wrkzdev image you built.
+
 Then you can run Wrkzd in a 9MB container!
 
 Coming soon; more great innovations!
++++
 
+# To find out what to do read on..
 
 ## Create
 
@@ -31,8 +35,9 @@ cd wrkz-oci
 
 #### to build a container with binary from the CI chain
 `docker build -f Dockerfile.Wrkzd -t wrkzdev .`
+##### NOTE: [THIS LINK](https://docs.docker.com/engine/reference/commandline/build/#git-repositories) suggests you can build directly from the GitHub repo, although I've not tried it.
 
-#### NOTE:  you can add build argument 'dl' to supercede the hard coded binary, as I will inevibatably not keep things up to date.
+#### NOTE:  you can add build argument 'dl' to supercede the hard coded binary, as I will inevitably not keep things up to date.
 `docker build --build-arg dl="https://wrkzcoin.s3.fr-par.scw.cloud/cli/20200213-1405-7cf341a2-wrkzcoin-linux-leveldb.tar.gz" -f Dockerfile.Wrkzd -t wrkzdev .`
 
 ##### or to build everything from the GitHub development tree (takes a while)
